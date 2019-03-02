@@ -3,6 +3,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE FlexibleInstances #-}
 
+
+
 -- + Complete the 10 exercises below by filling out the function bodies.
 --   Replace the function bodies (error "todo: ...") with an appropriate
 --   solution.
@@ -33,7 +35,7 @@ import qualified Numeric as N
 -- The custom list type
 data List t =
   Nil
-  | t :. List t
+  | t :. List t -- TODO: I think this is defining (:.)? 
   deriving (Eq, Ord)
 
 -- Right-associative
@@ -75,8 +77,8 @@ headOr ::
   a
   -> List a
   -> a
-headOr =
-  error "todo: Course.List#headOr"
+headOr d Nil = d
+headOr (x :. l) = x
 
 -- | The product of the elements of a list.
 --
@@ -91,8 +93,7 @@ headOr =
 product ::
   List Int
   -> Int
-product =
-  error "todo: Course.List#product"
+product = foldl (*) 1
 
 -- | Sum the elements of the list.
 --
@@ -106,8 +107,7 @@ product =
 sum ::
   List Int
   -> Int
-sum =
-  error "todo: Course.List#sum"
+sum = foldl' (+) 0
 
 -- | Return the length of the list.
 --
@@ -118,8 +118,7 @@ sum =
 length ::
   List a
   -> Int
-length =
-  error "todo: Course.List#length"
+length = foldl' (\s _ -> s + 1) 0
 
 -- | Map the given function on each element of the list.
 --
@@ -133,8 +132,7 @@ map ::
   (a -> b)
   -> List a
   -> List b
-map =
-  error "todo: Course.List#map"
+map f = foldl' (\acc x -> f x :. acc) []
 
 -- | Return elements satisfying the given predicate.
 --
@@ -150,8 +148,7 @@ filter ::
   (a -> Bool)
   -> List a
   -> List a
-filter =
-  error "todo: Course.List#filter"
+filter f = foldl' (\acc x -> if f x then x :. acc else acc) [] 
 
 -- | Append two lists to a new list.
 --
